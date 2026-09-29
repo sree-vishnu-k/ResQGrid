@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-slate-800;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Soft mesh gradient background to make the glass effect visible */
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(213,100%,94%,1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(202,100%,91%,1) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(199,100%,93%,1) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(217,100%,96%,1) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ── Leaflet fixes ─────────────────────────────────────────────── */
+.leaflet-container { height: 100%; width: 100%; z-index: 1; }
+.map-card { @apply h-[520px] w-full; }
+
+/* Risk pin markers */
+.risk-marker.leaflet-div-icon { background: transparent; border: none; width: 32px; height: 42px; }
+.risk-marker .risk-pin {
+  width: 28px; height: 28px; border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg); border: 2.5px solid #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 4px; position: relative;
+}
+.risk-marker .risk-pin .risk-pin-score {
+  transform: rotate(45deg); font-size: 10px; font-weight: 800;
+  color: #fff; line-height: 1; text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.risk-marker.leaflet-marker-icon:hover .risk-pin {
+  transform: rotate(-45deg) scale(1.2); transition: transform 0.15s ease; z-index: 1000 !important;
+}
+.pulse-circle { animation: leaflet-pulse 2.2s infinite ease-out; }
+@keyframes leaflet-pulse {
+  0%   { stroke-opacity: 0.85; stroke-width: 2.5; }
+  50%  { stroke-opacity: 0.4;  stroke-width: 4;   }
+  100% { stroke-opacity: 0.85; stroke-width: 2.5; }
+}
+.site-marker.leaflet-div-icon { background: transparent; border: none; }
+.site-marker .site-pin {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #0284c7; border: 2px solid #fff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: white;
+}
+.site-marker:hover .site-pin { transform: scale(1.2); transition: transform 0.15s ease; }
+.leaflet-popup-content-wrapper {
+  border-radius: 14px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+  padding: 0; overflow: hidden;
+}
+.leaflet-popup-content { margin: 12px 14px; line-height: 1.4; }
+.leaflet-container a.leaflet-popup-close-button { top: 8px; right: 8px; color: #64748b; padding: 4px; }
+
+/* ── Component Layer ───────────────────────────────────────────── */
+@layer components {
+
+  /* Apple-style card: clean white, subtle border, soft shadow */
+  .card {
+    @apply bg-white/70 backdrop-blur-xl rounded-2xl border border-white/60 shadow-[0_4px_24px_rgba(0,0,0,0.04)];
+  }
+
+  /* Glass card variant for hero-level panels */
+  .card-glass {
+    @apply bg-white/50 backdrop-blur-2xl rounded-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.08)];
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm
+           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98];
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-400 shadow-sm;
+  }
+  .btn-outline {
+    @apply btn border border-slate-200 bg-white/80 text-slate-700 hover:bg-slate-50
+           hover:border-slate-300 focus:ring-slate-300 shadow-sm;
+  }
+  .btn-danger {
+    @apply btn bg-risk-red text-white hover:bg-red-700 focus:ring-red-400 shadow-sm;
+  }
+  .btn-ghost {
+    @apply btn text-slate-600 hover:bg-slate-100 focus:ring-slate-300;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white/80 backdrop-blur-sm px-3.5 py-2.5 text-sm
+           shadow-sm placeholder-slate-400
+           focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/20
+           transition-all duration-200;
+  }
+  .label {
+    @apply block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5;
+  }
+}
+
+/* ── Utility animations ────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.4s ease both; }
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.35); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+
+/* ── Print ─────────────────────────────────────────────────────── */
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  nav, header, aside, .btn, .no-print, [role="navigation"] { display: none !important; }
+  .printable-doc {
+    box-shadow: none !important; border: none !important;
+    width: 100% !important; max-width: 100% !important;
+    padding: 0 !important; margin: 0 !important;
+  }
+  @page { size: A4 portrait; margin: 15mm; }
+}

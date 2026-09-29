@@ -1,0 +1,95 @@
+================================================================================
+       RESQGRID — MULTI-HAZARD RISK & RELOCATION DECISION SUPPORT SYSTEM
+                       SMART INDIA HACKATHON (SIH 2026)
+================================================================================
+
+PREREQUISITES:
+--------------
+1. Node.js (v18.0.0 or higher recommended)
+   Download from: https://nodejs.org/
+2. Git (Optional, but recommended)
+
+--------------------------------------------------------------------------------
+QUICKSTART GUIDE (HOW TO INSTALL AND RUN)
+--------------------------------------------------------------------------------
+
+STEP 1: OPEN TERMINAL / COMMAND PROMPT
+--------------------------------------
+Open Command Prompt (cmd) or PowerShell in the root directory of this unzipped folder:
+Folder: Analyst-0077627-ResQGrid-ded8c99\Analyst-0077627-ResQGrid-ded8c99
+
+
+STEP 2: INSTALL DEPENDENCIES
+----------------------------
+Run the following command to automatically install dependencies for both server and client:
+
+   npm run install:all
+
+(If you face any script policy errors in Windows PowerShell, use Command Prompt / cmd.exe instead).
+
+
+STEP 3: RUN THE APPLICATION
+---------------------------
+To start both the Backend API server and Frontend Web Application concurrently, run:
+
+   npm run dev
+
+Once started:
+- Frontend Application URL : http://localhost:5173
+- Backend API Server URL   : http://localhost:5000
+
+
+--------------------------------------------------------------------------------
+DEMO LOGIN CREDENTIALS
+--------------------------------------------------------------------------------
+Open http://localhost:5173 in your browser and sign in using any of the following accounts:
+
+1. District Collector (Full Admin / Decision Maker)
+   Email    : collector@resqgrid.gov.in
+   Password : Disaster@12345
+
+2. System Administrator
+   Email    : admin@resqgrid.gov.in
+   Password : Admin@12345
+
+3. Risk Analyst
+   Email    : analyst@resqgrid.gov.in
+   Password : Analyst@12345
+
+4. Field Officer
+   Email    : field@resqgrid.gov.in
+   Password : Field@12345
+
+5. Public Viewer
+   Email    : viewer@resqgrid.gov.in
+   Password : Viewer@12345
+
+
+--------------------------------------------------------------------------------
+DATABASE MODES (OFFLINE DEMO vs REAL MONGODB)
+--------------------------------------------------------------------------------
+
+1. DEFAULT MODE (Zero Setup / Offline Demo):
+   No database configuration is needed! The app automatically starts in 
+   In-Memory Demo Mode loaded with 472 real-world habitations, shelters, and 
+   risk profiles.
+
+2. REAL MONGODB MODE (Cloud / Local MongoDB):
+   To connect to a persistent MongoDB database:
+   a. Go to the "server" folder.
+   b. Create a file named ".env".
+   c. Add your MongoDB connection string:
+      MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxx.mongodb.net/resqgrid
+      DEMO_SEED=false
+   d. Run "npm run seed" inside the server folder.
+
+
+--------------------------------------------------------------------------------
+PROJECT COMMANDS SUMMARY
+--------------------------------------------------------------------------------
+- npm run install:all  : Installs server and client dependencies
+- npm run dev          : Runs server (5000) and client (5173) together
+- npm run dev:server   : Runs backend API only
+- npm run dev:client   : Runs frontend Vite app only
+- npm run seed         : Seeds initial database records
+================================================================================
